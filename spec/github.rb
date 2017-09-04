@@ -1,5 +1,4 @@
 require_relative '../config/environment'
-
 def login
   visit '/login'
   fill_in 'login_field', with: GITHUB[:login]
@@ -26,15 +25,10 @@ describe "the authentication process", :type => :feature do
     end
   }
 
-  begin
-    it "transfers repo" do
-      login
-      urls.each.with_index do |url, i|
-        moveRepository(url, repositories[i])
-      end
+  it "transfers repo" do
+    login
+    urls.each.with_index do |url, i|
+      moveRepository(url, repositories[i])
     end
-  rescue => error
-    puts error.inspect
   end
-
 end

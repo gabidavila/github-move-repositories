@@ -12,6 +12,4 @@ GITHUB = {
 }
 Capybara.app_host = 'https://github.com'
 Capybara.current_driver = Capybara.javascript_driver
-Capybara.run_server = false # don't start Rack
-
-require_relative '../lib/github'
+Capybara.run_server = false
