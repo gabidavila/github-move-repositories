@@ -17,7 +17,7 @@ Use this **at your own risk**. Currently this package moves **all** public repos
 1. Copy the `.env.example` to `.env`
 2. Fill the `.env` file with the required fields, (remember, 2FA should be disabled)
 3. Run `bundle install` 
-4. Run `rspec` on the root folder of this project
+4. Run `rspec spec/github.rb` on the root folder of this project
 
 ## Observations
 

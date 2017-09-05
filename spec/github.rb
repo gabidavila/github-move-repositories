@@ -1,4 +1,4 @@
-require_relative '../config/environment'
+require_relative 'spec_helper'
 def login
   visit '/login'
   fill_in 'login_field', with: GITHUB[:login]
