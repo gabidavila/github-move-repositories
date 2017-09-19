@@ -32,6 +32,12 @@ end
 
 The `.env` files are not tracked by default in this repository, do not put your data inside `.env.example` and push it. Change your password before and after the usage of this package.
 
+Already cloned repositories may give you a permission error when trying to push because it is trying to access the previous URL for the repository, to update on your local clone, run:
+
+```
+$ git remote --set-url http://github/{my-org}/{repository-name}
+```
+
 ## License
 
 This repository is covered under the [MIT license](LICENSE.md)
