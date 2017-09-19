@@ -14,10 +14,16 @@ def moveRepository(url, repository)
   click_button 'I understand, transfer this repository.'
 end
 
-describe "the authentication process", :type => :feature do
+describe 'the authentication process', :type => :feature do
   Octokit.auto_paginate = true
   github_client = Octokit::Client.new(access_token: GITHUB[:access_token])
   repositories = github_client.repositories GITHUB[:origin_user]
+
+  if ['true', 1, true].include?(GITHUB[:only_forks])
+    repositories = repositories.select do |repo|
+      repo[:fork]
+    end
+  end
 
   let(:urls) {
     repositories.collect do |repo|
@@ -25,7 +31,7 @@ describe "the authentication process", :type => :feature do
     end
   }
 
-  it "transfers repo" do
+  it 'transfers repo' do
     login
     urls.each.with_index do |url, i|
       moveRepository(url, repositories[i])
