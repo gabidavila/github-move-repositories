@@ -23,10 +23,9 @@ end
 ## How to move between repositories
 
 1. Copy the `.env.example` to `.env`
-2. Fill the `.env` file with the required fields, (remember, 2FA should be disabled). `GITHUB_USER_TO_MOVE_REPOSITORIES_FROM` and `GITHUB_USER_TO_MOVE_REPOSITORIES_TO` receives the **username**, not the profile URL.
-3. `ONLY_FORKS` filters the repositories to transfer only **forks**
-4. Run `bundle install`
-5. Run `rspec spec/github.rb` on the root folder of this project
+2. Fill the `.env` file with the required fields, (remember, 2FA should be disabled). `GITHUB_USER_TO_MOVE_REPOSITORIES_FROM` and `GITHUB_USER_TO_MOVE_REPOSITORIES_TO` receives the **username**, not the profile URL. `ONLY_FORKS` filters the repositories to transfer only **forks**
+3. Run `bundle install`
+4. Run `rspec spec/github.rb` on the root folder of this project
 
 ## Observations
 
@@ -35,7 +34,7 @@ The `.env` files are not tracked by default in this repository, do not put your 
 Already cloned repositories may give you a permission error when trying to push because it is trying to access the previous URL for the repository, to update on your local clone, run:
 
 ```
-$ git remote --set-url http://github/{my-org}/{repository-name}
+$ git remote --set-url http://github.com/{my-org}/{repository-name}
 ```
 
 ## License
