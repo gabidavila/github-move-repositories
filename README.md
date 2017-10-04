@@ -2,15 +2,13 @@
 
 This is just a hack to transfer repositories between users or GitHub organizations. It was created because the current API does not support transfer of repositories.
 
-Use this **at your own risk**. Currently this package moves **all** public repositories to _destination user_, unless specified condition `ONLY_FORKS` equal to `true`. Private repositories aren't affected. If you want to customize which repositories are moved, change the `repositories` variable in the `spec/github.rb` file. Probably around this part:
+Use this **at your own risk**. By default this package moves **all** public repositories to _destination user_. Private repositories aren't affected.
 
-```ruby
-if ['true', 1, true].include?(GITHUB[:only_forks])
-  repositories = repositories.select do |repo|
-    repo[:fork]
-  end
-end
-```
+You can specify repositories to move in the following ways:
+* To move only specific repositories, poopulate the 'INCLUDED_REPOS' array.
+* To ignore specific repositories, poopulate the 'EXCLUDED_REPOS' array.
+* To move only repositories that are forks, set 'ALL_FORKS' to true
+* To move only repositories forked from specified origins, populate the 'USERS_FORKED_FROM' array
 
 # Requirements
 

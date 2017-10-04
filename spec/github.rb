@@ -14,19 +14,38 @@ def moveRepository(url, repository)
   click_button 'I understand, transfer this repository.'
 end
 
+def is_fork?(repo)
+  repo[:fork]
+end
+
+def selected_fork_origin?(repo)
+  REPO_OPTIONS[:forked_from].include?(repo[:parent][:login])
+end
+
+def excluded_repo?(repo)
+  REPO_OPTIONS[:exclude].include?(repo[:name])
+end
+
+def included_repo?(repo)
+  REPO_OPTIONS[:include_only].include?(repo[:name])
+end
+
+def filter_repositories
+  GITHUB[:all_forks] ? @repositories.keep_if { |repo| is_fork?(repo) } : nil
+  REPO_OPTIONS[:forked_from].any? ? @repositories.keep_if { |repo| selected_fork_origin?(repo) } : nil
+  REPO_OPTIONS[:exclude].any? ? @repositories.delete_if { |repo| excluded_repo?(repo) } : nil
+  REPO_OPTIONS[:include_only].any? ? @repositories.keep_if { |repo| included_repo?(repo) } : nil
+end
+
 describe 'the authentication process', :type => :feature do
   Octokit.auto_paginate = true
   github_client = Octokit::Client.new(access_token: GITHUB[:access_token])
-  repositories = github_client.repositories GITHUB[:origin_user]
+  @repositories = github_client.repositories GITHUB[:origin_user]
 
-  if ['true', 1, true].include?(GITHUB[:only_forks])
-    repositories = repositories.select do |repo|
-      repo[:fork]
-    end
-  end
+  filter_repositories
 
   let(:urls) {
-    repositories.collect do |repo|
+    @repositories.collect do |repo|
       "/#{repo.full_name}/settings"
     end
   }
@@ -34,7 +53,7 @@ describe 'the authentication process', :type => :feature do
   it 'transfers repo' do
     login
     urls.each.with_index do |url, i|
-      moveRepository(url, repositories[i])
+      moveRepository(url, @repositories[i])
     end
   end
 end
