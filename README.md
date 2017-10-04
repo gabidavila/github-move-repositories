@@ -5,8 +5,8 @@ This is just a hack to transfer repositories between users or GitHub organizatio
 Use this **at your own risk**. By default this package moves **all** public repositories to _destination user_. Private repositories aren't affected.
 
 You can specify repositories to move in the following ways:
-* To move only specific repositories, poopulate the 'INCLUDED_REPOS' array.
-* To ignore specific repositories, poopulate the 'EXCLUDED_REPOS' array.
+* To move only specific repositories, populate the 'INCLUDED_REPOS' array.
+* To ignore specific repositories, populate the 'EXCLUDED_REPOS' array.
 * To move only repositories that are forks, set 'ALL_FORKS' to true
 * To move only repositories forked from specified origins, populate the 'USERS_FORKED_FROM' array
 
